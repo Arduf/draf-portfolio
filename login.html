@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login and Registration Forms</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f8f9fa;
+    }
+
+    .container-fluid {
+      padding: 0;
+    }
+
+    .left-container, .right-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .right-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right-container video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-custom {
+      background-color: #ACA572;
+      border-color: #ACA572;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover, .btn-custom:focus {
+      background-color: #8B8A62;
+      border-color: #8B8A62;
+      color: #fff;
+    }
+
+    .social-btn {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      background-color: #ACA572;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .social-btn:hover {
+      background-color: #8B8A62;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .social-btn i {
+      margin-right: 10px;
+    }
+
+    .form-container a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      margin: 20px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .divider::before, .divider::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background-color: #ddd;
+      width: 45%;
+      position: absolute;
+      top: 50%;
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+    .divider span {
+      padding: 0 15px;
+      background-color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 991px) {
+      .right-container {
+        display: none;
+      }
+      .left-container {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .form-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row no-gutters">
+      <div class="left-container col-lg-6">
+        <div class="form-container" id="login-form">
+          <h2 class="text-center mb-4">Login</h2>
+          <form action="#" method="post">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe">
+              <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Login</button>
+            
+            <div class="divider"><span>OR</span></div>
+
+            <div class="d-flex flex-column align-items-center mt-3">
+              <a href="#" class="social-btn btn-google" onclick="loginWithGoogle()"><i class="bi bi-google"></i>Login with Google</a>
+              <a href="#" class="social-btn btn-facebook" onclick="loginWithFacebook()"><i class="bi bi-facebook"></i>Login with Facebook</a>
+              <a href="#" class="social-btn btn-apple" onclick="loginWithApple()"><i class="bi bi-apple"></i>Login with Apple</a>
+            </div>
+
+            <hr class="my-4">
+
+            <p class="text-center mb-0"><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+            <p class="text-center">Don't have an account? <a href="#" onclick="showRegistrationForm()">Register here</a>.</p>
+          </form>
+        </div>
+        <div class="form-container" id="register-form" style="display: none;">
+          <h2 class="text-center mb-4">Register</h2>
+          <form action="#" method="post">
+            <div class="form-group">
+              <label for="fullname">Full Name:</label>
+              <input type="text" class="form-control" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="new-username">Username:</label>
+              <input type="text" class="form-control" id="new-username" name="new-username" required>
+            </div>
+            <div class="form-group">
+              <label for="new-password">Password:</label>
+              <input type="password" class="form-control" id="new-password" name="new-password" required>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Register</button>
+            <p class="text-center mt-3">Already have an account? <a href="#" onclick="showLoginForm()">Login here</a>.</p>
+          </form>
+        </div>
+      </div>
+      <div class="right-container col-lg-6">
+        <video autoplay muted loop>
+          <source src="https://videos.pexels.com/video-files/20397150/20397150-uhd_1440_2560_50fps.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- API Script -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- Meta tag Google -->
+  <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+  <!-- Facebook SDK -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <!-- Apple SDK -->
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script>
+    function showRegistrationForm() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('register-form').style.display = 'block';
+    }
+    
+    function showLoginForm() {
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+    }
+
+    /* Google */
+    function loginWithGoogle() {
+      gapi.load('auth2', function() {
+        const auth2 = gapi.auth2.init({
+          client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+        });
+        auth2.signIn().then(function(user) {
+          console.log('Google User:', user.getBasicProfile().getName());
+          alert('Logged in as: ' + user.getBasicProfile().getName());
+        });
+      });
+    }
+
+    /* Facebook */
+    function loginWithFacebook() {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          FB.api('/me', function(response) {
+            console.log('Facebook User:', response.name);
+            alert('Logged in as: ' + response.name);
+          });
+        } else {
+          alert('User cancelled login or did not fully authorize.');
+        }
+      }, {scope: 'public_profile,email'});
+    }
+
+    /* Apple */
+    function loginWithApple() {
+      AppleID.auth.init({
+        clientId: 'YOUR_APPLE_CLIENT_ID',
+        scope: 'name email',
+        redirectURI: 'YOUR_REDIRECT_URI',
+        state: 'state',
+      });
+
+      AppleID.auth.signIn().then(function(response) {
+        console.log('Apple User:', response.user);
+        alert('Logged in as: ' + response.user.name.firstName + ' ' + response.user.name.lastName);
+      }).catch(function(error) {
+        console.error(error);
+        alert('Error logging in with Apple ID');
+      });
+    }
+
+    function forgotPassword() {
+      // Redirect to the forgot password page
+      window.location.href = '/forgot-password';
+    }
+  </script>
+</body>
+</html>
